@@ -1,10 +1,20 @@
 var ids = {
-  refreshToken: '***********',
-  clientId: '***********',
-  clientSecret: '***********',
+  refreshToken: '***********', // Obtained from the Oauth 2 playground
+  clientId: '***********', // Obtained from the developer console
+  clientSecret: '***********', // Obtained from the developer console
 };
-
+/**
+* MicroOauth2 will provide you with a valid access token
+* @param {Object} ids, the credentials needed to obtain a access token
+* @return {String} accessToken, to be used for a google api request
+**/
 function MicroOauth2(ids) {
+  /**
+  * getNewTokenData retrieve the accessToken informations
+  * @param {Object} ids, the credentials needed to obtain a access token
+  * @return {Object} tokenData, the access token information retrieved
+  * from Google + a time method to verify it's validity
+  **/
   function getNewTokenData(ids) {
     var tokenEndpoint = 'https://accounts.google.com/o/oauth2/token';
     var payload = {
@@ -29,16 +39,20 @@ function MicroOauth2(ids) {
   }
 
   this.tokenData = {};
-  var that = this;
+  var _this = this;
 
+  /**
+  * GetToken the method to retrieve a token
+  * @return {String} accessToken, a valid accessToken
+  **/
   function GetToken() {
-    if (that.tokenData.access_token === undefined) {
-      that.tokenData = getNewTokenData(ids);
-    } else if (that.tokenData.isExpired()) {
-      that.tokenData = getNewTokenData(ids);
+    if (_this.tokenData.access_token === undefined) {
+      _this.tokenData = getNewTokenData(ids);
+    } else if (_this.tokenData.isExpired()) {
+      _this.tokenData = getNewTokenData(ids);
     }
 
-    return that.tokenData.access_token;
+    return _this.tokenData.access_token;
   }
 
   this.getToken = GetToken;

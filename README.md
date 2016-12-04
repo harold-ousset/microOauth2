@@ -24,27 +24,27 @@ return a string that correspond to the token.
 ### example  
 
 You can copy past in your script one of the functions given in the demo file 'demo.gs.js'. Here is the 'createFile' function. It will create a file named 'test' on the authenticated drive  
-
-    function createFile() {
-      var mo2 = new MicroOauth2(ids);
-      var url = 'https://www.googleapis.com/drive/v3/files';
-      var payload = {
-        name: 'test',
-      };
-      var params = {
-        headers: {
-          Authorization: 'Bearer ' + mo2.getToken(),
-        },
-        method: 'POST',
-        payload: JSON.stringify(payload),
-        contentType: 'application/json',
-        muteHttpExceptions: true,
-      };
-      var response = UrlFetchApp.fetch(url, params);
-      Logger.log(response.getResponseCode());
-    }
-
-## Initialize the script  
+```javascript
+function createFile() {
+  var mo2 = new MicroOauth2(ids);
+  var url = 'https://www.googleapis.com/drive/v3/files';
+  var payload = {
+    name: 'test',
+  };
+  var params = {
+    headers: {
+      Authorization: 'Bearer ' + mo2.getToken(),
+    },
+    method: 'POST',
+    payload: JSON.stringify(payload),
+    contentType: 'application/json',
+    muteHttpExceptions: true,
+  };
+  var response = UrlFetchApp.fetch(url, params);
+  Logger.log(response.getResponseCode());
+}
+```  
+## Initialize the script  
 
 In order to have the script to work, you'll need to have a correct **ids** object.
 In this section I'll show you how to obtain these ids. Please keep in mind everything here is subject to Google changes.

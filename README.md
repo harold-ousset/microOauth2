@@ -4,13 +4,13 @@
 
 ### Note  
 
-This JS script do not use the lastest ECMAScript specifications because it's dedicated to be used in Google Apps Script. So it's a mix of different [older specifications](https://developers.google.com/apps-script/guides/services/#basic_javascript_features). I propose this script as a small utility (I use it myself in my own scripts) but it's also sufficient simple to understand the behind process and learn how one of the oauth2 process work. Keeping that in mind I'm sure that you'll find more convenient script to use the Google Oauth2 APIs like the one made by [Eric Koleda](https://github.com/googlesamples/apps-script-oauth2)
+This JS script do not use the lastest ECMAScript specifications because it's dedicated to be used in Google Apps Script (GAS). GAS Is a mix of different [older specifications](https://developers.google.com/apps-script/guides/services/#basic_javascript_features). I propose this script as a small utility (I use it myself in my own scripts) but it's also simple enough to understand and learn the process and the oauth2 process. Keeping that in mind I'm sure that you'll find more convenient script to use the Google Oauth2 APIs like the one made by [Eric Koleda](https://github.com/googlesamples/apps-script-oauth2)
 
 ### Install  
 Copy the file "microOauth2.gs.js" in your Google Apps Script and change the **** for your own credentials (see part 'Initialize the script')
 
 #### Syntax  
-> var mo2 = new MicroOauth2(ids);  
+> var mo2 = new MicroOauth2(ids);  // where ids is an object containing the credentials
 > mo2.getToken();  
 
 #### Parameters  
@@ -23,7 +23,7 @@ return a string that correspond to the token.
 
 ### example  
 
-You can copy past in your script one of the functions given in the demo file 'demo.gs.js'. Here is the 'createFile' function. It will create a file named 'test' on the authenticated drive  
+You can copy past in your script one of the functions given in the demo file 'demo.gs.js'. Here is the 'createFile' function. It will create a file named 'test' on the authenticated google drive  
 ```javascript
 function createFile() {
   var mo2 = new MicroOauth2(ids);
@@ -70,21 +70,21 @@ A refresh token is obtained for a specific scope. so you may need to authorize t
 ![developerConsole>Library](http://i.imgur.com/4GsPOja.png)  
 ![driveLibraryActivated](http://i.imgur.com/JUhxfA1.png)  
 
-Ones the libraries are activated we can obtain that famous refresh token.  
-The method that I picked here use the [Google Oauth 2 playground](https://developers.google.com/oauthplayground/) but you can do it in various other ways. [Here](https://docs.google.com/presentation/d/1gQV5Dtka75eXMxqixT5-Pv23cIjo53bvbXG930LA0No/edit#slide=id.p) a link with explanations on how the process is working  
+Once the libraries are activated we can obtain that famous refresh token.  
+The method that I picked here use the [Google Oauth 2 playground](https://developers.google.com/oauthplayground/) but you can do it in various other ways. [Here](https://docs.google.com/presentation/d/1gQV5Dtka75eXMxqixT5-Pv23cIjo53bvbXG930LA0No/edit#slide=id.p) a link with explanations on how the process work  
 In order to play with the Oauth2 Playground we must authorize it in the developer console.  
-In the credential panel open the credentials you created by clicking on it's name ![nicroOauth2Name](http://i.imgur.com/G8GparL.png). You'll then see a panel where you can authorize redirect URIs. Add the Oauth2 Playground url and save (twice)  
+From the credential panel open your credentials by clicking on it's name ![nicroOauth2Name](http://i.imgur.com/G8GparL.png). You'll then see a panel where you can authorize redirect URIs. Add the Oauth2 Playground url and save (twice)  
 ![addOauthPlaygroundUrl](http://i.imgur.com/TVRepZS.png)  
 
 **RDV in the Oauth 2 Playground**  
 From the parameter icon select "Use your own Oauth credentials" and input your client id and secret  
 ![useYourOwnCredentials](http://i.imgur.com/SMJmHi7.png)  
-In the step one select the API you want to activate. In the demo we will activate the Drive API (https://www.googleapis.com/auth/drive)  
+In the first step select the API you want to activate. In the demo we will activate the Drive API (https://www.googleapis.com/auth/drive)  
 ![activateDrive](http://i.imgur.com/6GMpvAQ.png)  
-An authorization screen will show up and ask your authorization to proceed, once it's done you'll be redirected to the step 2.  
-Finally exchange the authorization code for the refresh token that you can now copy to the ids Object.  
+An authorization screen show up, validate it's request. Once validated you'll be redirected to the second step.  
+In the second step panel exchange your authorization code for a refresh token (and access token) that you can now copy to the ids Object in your script.  
 ![authorizationCodeExchange](http://i.imgur.com/Kav67HA.png)  
 
 ![getTheRefreshToken](http://i.imgur.com/67i91wa.png?1)  
-Note: when exchanging Authorization code for a refresh token you are automatically directed to step 3, just reopen step 2 to retrieve the refresh token  
+Note: when exchanging Authorization code for a refresh token you are automatically directed to third step, just reopen second step to retrieve the refresh token  
 ![copyRefreshToken](http://i.imgur.com/kBKa3qb.png)
